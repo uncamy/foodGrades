@@ -2,7 +2,7 @@
 
 /*var latlng= new google.maps.LatLng(document.getElementById("user_loc").innerHTML);*/
 
-var latlng = new google.maps.LatLng(40.6700, -73.9400)
+var latlng = new google.maps.LatLng(40.72078, -74.001119);
 /*graffiti_locations passed in as graffiti_loc*/
 
 function initialize(){
