@@ -1,7 +1,7 @@
 # Tasklist
 
 ## Heat map restaurants by grade and zipcode
-* Heat map of grade by zip
+* Heat map of grade by zip (dataset is pretty big)
 * Heat map of restaurant type by zip
 * Overlay with violation data
   * Geocode violation data (address is provided)
