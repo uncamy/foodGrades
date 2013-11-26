@@ -5,4 +5,8 @@ manhattan = pd.read_csv('./manhattan_grades.csv')
 
 geocodes.rename(columns = {'JURISDICTION NAME': 'ZIPCODE'}, inplace = True)
 
-test= pd.merge(manhattan, geocodes, on = 'ZIPCODE')
+df = pd.merge(manhattan, geocodes, on = 'ZIPCODE')
+
+df2 = df[(df['ZIPCODE'] < 10011)]
+
+df2.to_csv('reduced_man_geocoded_zip.csv')
