@@ -4,6 +4,7 @@ var height = 500;
 var svg;
 var zips;
 
+var data = d3.json('./data/NYC_mean_scores.json');
 //mapping + center point
 var projection = d3.geo.mercator()
     .center([-73.955541, 40.795780])
@@ -18,8 +19,21 @@ var setSVG = function () {
         .attr("height", height);
 };
 
-//Read in Json
+//quantize and colors
+var setColors = d3.scale.quantize()
+    .domain([0, data[dataSetIndex][2]])
+    .range(d3.range(9).map(function(i){return "q" + (i) + "-9";}));
 
+//map mean resturant health score by zipcode color
+var zipColor = function(zip, data) {
+    if(zip in data) {
+        return setColor(data[zip]);
+    }else{
+        return "white;"
+    }
+};
+
+//Read in Json for map outline of ZIPS
 d3.json('./data/zipcodes.json', function(zips){
     setSVG();
     svg.append("g")
@@ -28,9 +42,11 @@ d3.json('./data/zipcodes.json', function(zips){
         .enter()
         .append("path")
            .attr("title", function(d) {return d.id})
-           .attr("stroke", '#000')
+           .attr("stroke", '#fff')
+           .attr("class", function(d) {return zipColor(d.id, (data[dataSetIndex])[0]);})
         .attr("d", path);
 });
+
 /*
 var rateById = d3.map();
 
