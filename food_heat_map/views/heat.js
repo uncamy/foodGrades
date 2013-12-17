@@ -1,6 +1,24 @@
-var width = 960,
-height = 500;
+var width = 960;
+var height = 500;
 
+var svg;
+var zips;
+
+//mapping + center point
+var projection = d3.geo.mercator()
+    .center([-73.955541, 40.795780])
+    .scale(95000);
+
+var path = d2.geo.path().projection(projection);
+
+var setSVG = function () {
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+}
+
+/*
 var rateById = d3.map();
 
 var quantize = d3.scale.quantize()
@@ -9,9 +27,6 @@ var quantize = d3.scale.quantize()
 
 var path = d3.geo.path();
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
 
 queue()
     .defer(d3.json, "./data/zipcodes.json")
@@ -32,3 +47,4 @@ queue()
       .attr("class", "states")
       .attr("d", path);
 }
+*/
