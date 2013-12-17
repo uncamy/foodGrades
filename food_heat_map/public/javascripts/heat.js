@@ -1,5 +1,5 @@
-var width = 960;
-var height = 500;
+var width = 1200;
+var height = 800;
 
 var svg;
 var scores;
