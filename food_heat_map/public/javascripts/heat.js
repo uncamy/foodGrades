@@ -21,30 +21,34 @@ var setSVG = function () {
 
 //quantize and colors
 var setColors = d3.scale.quantize()
-    .domain([0, data[dataSetIndex][2]])
+    .domain([0, 40])
     .range(d3.range(9).map(function(i){return "q" + (i) + "-9";}));
 
 //map mean resturant health score by zipcode color
 var zipColor = function(zip, data) {
     if(zip in data) {
-        return setColor(data[zip]);
+        return setColors(data[zip]);
     }else{
-        return "white;"
+        return "white";
     }
 };
 
-//Read in Json for map outline of ZIPS
-d3.json('./data/zipcodes.json', function(zips){
-    setSVG();
+//mapping setup
+var mapCreate = function (zips) {
     svg.append("g")
         .selectAll("path")
         .data(zips.features)
         .enter()
         .append("path")
-           .attr("title", function(d) {return d.id})
-           .attr("stroke", '#fff')
-           .attr("class", function(d) {return zipColor(d.id, (data[dataSetIndex])[0]);})
+        .attr("title", function(d) {return d.id})
+        .attr("stroke", '#fff')
+        .attr("class", function(d) {return zipColor(d.id, data) ;})
         .attr("d", path);
+}
+//Read in Json for map outline of ZIPS
+d3.json('./data/zipcodes.json', function(zips){
+    setSVG();
+    mapCreate(zips);
 });
 
 /*
