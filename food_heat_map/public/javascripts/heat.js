@@ -9,15 +9,28 @@ var projection = d3.geo.mercator()
     .center([-73.955541, 40.795780])
     .scale(95000);
 
-var path = d2.geo.path().projection(projection);
+var path = d3.geo.path().projection(projection);
+
 
 var setSVG = function () {
-    var svg = d3.select("body").append("svg")
+    svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height);
+};
 
-}
+//Read in Json
 
+d3.json('./data/zipcodes.json', function(zips){
+    setSVG();
+    svg.append("g")
+        .selectAll("path")
+        .data(zips.features)
+        .enter()
+        .append("path")
+           .attr("title", function(d) {return d.id})
+           .attr("stroke", '#000')
+        .attr("d", path);
+});
 /*
 var rateById = d3.map();
 

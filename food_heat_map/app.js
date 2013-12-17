@@ -7,7 +7,7 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var cons = require('consolidate');
-
+var fs = require('fs');
 var app = express();
 
 // all environments
@@ -33,4 +33,9 @@ app.get('/', routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+    fs.readFile('./public/data/zipcodes.json'), function(err, data) {
+        if (err) throw err;
+        console.log(data.features[0]);
+    };
+
 });
