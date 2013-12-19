@@ -82,6 +82,18 @@ var setLegend = function () {
         .text(function(d, i){return d});
 
 }
+// alllow view data on mouseover
+document.body.get
+var mouseOver = function (){
+    $("path").hover(function (){
+        zip = $(this).attr("title");
+        meanScore = scores[zip];
+        console.log(meanScore)
+        $("#infoBox").html("Zipcode: " + zip + " Mean score: " + meanScore);
+        }
+    );
+};
+
 //Add labels
 var dataMax = 40;
 var ls_w = 20;
@@ -93,4 +105,5 @@ d3.json('./data/zipcodes.json', function(zips){
     setSVG();
     mapCreate(zips);
     setLegend();
+    mouseOver();
 });

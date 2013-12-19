@@ -2,6 +2,7 @@
 <head>
   <meta charset="utf-8">
   <title>Food Grade Heat Map </title>
+  <script src = "javascripts/jquery-1.10.2.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
@@ -23,10 +24,26 @@
       .q7-9 { fill:rgb(8,81,156); }
       .q8-9 { fill:rgb(8,48,107); }
 
+    #infoBox {
+                          position: fixed;
+                          font-family: "Helvetica Neue", Helvetica;
+                          bottom: 2em;
+                          right: 2em;
+                          text-decoration: none;
+                          color: white;
+                          background-color: rgba(0, 0, 0, 0.6);
+                          font-size: 14px;
+                          padding: 1em;
+                          display: none;
+
   </style>
 </head>
 
 <body>
   <script src ="javascripts/heat.js"></script>
+  <div>
+    <a id="infoBox" style="display: inline;">Hover over a zip for more info! </a>
+  </div>
+
 </body>
 </html>
