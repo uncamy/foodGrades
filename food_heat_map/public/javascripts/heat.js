@@ -89,7 +89,7 @@ var mouseOver = function (){
         zip = $(this).attr("title");
         meanScore = scores[zip];
         console.log(meanScore)
-        $("#infoBox").html("Zipcode: " + zip + " Mean score: " + meanScore);
+        $("#infoBox").html("Zipcode: " + zip + " Mean score: " + Math.round(meanScore));
         }
     );
 };
