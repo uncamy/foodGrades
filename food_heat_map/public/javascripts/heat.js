@@ -1,5 +1,5 @@
-var width = 1200;
-var height = 800;
+var width = $(window).width();
+var height = $(window).height();
 
 var svg;
 var scores;
@@ -39,6 +39,13 @@ var zipColor = function(zip, data) {
         return "q1-9";
     }
 };
+
+//zooming
+var zoom = function() {
+    zoom = d3.event.translate;
+    svg.select('g').attr("transform", "translate(" + zoom + ")scale(" + d3.event.scale + ")");
+    d3.selectAll("svg").attr("stroke-width", '' + (1.75/d3.event.scale)+ 'px');
+}
 
 //mapping setup
 var mapCreate = function (zips) {
@@ -83,7 +90,6 @@ var setLegend = function () {
 
 }
 // alllow view data on mouseover
-document.body.get
 var mouseOver = function (){
     $("path").hover(function (){
         zip = $(this).attr("title");
@@ -103,6 +109,7 @@ var n_ticks  = 9;
 //Read in Json for map outline of ZIPS
 d3.json('./data/zipcodes.json', function(zips){
     setSVG();
+    svg.call(d3.behavior.zoom().scaleExtent([.5, 8]).on("zoom", zoom));
     mapCreate(zips);
     setLegend();
     mouseOver();
