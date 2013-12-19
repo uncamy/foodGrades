@@ -53,39 +53,44 @@ var mapCreate = function (zips) {
             return zipColor(d.id, scores)})
         .attr("d", path);
 }
+
+
+// Create legend
+var setLegend = function () {
+    var tick = dataMax / n_ticks;
+    var range = [];
+    for (k = 0; k< n_ticks; k++){
+        range.push(Math.floor(k*tick));
+    }
+    var legend = svg.selectAll ('g.legend')
+        .data(range)
+        .enter().append('g')
+        .attr("class", "legend");
+
+    legend.append("rect")
+        .attr("x", 20)
+        .attr("y", function(d, i){ return height/3.5 - (i*ls_h) -2*ls_h;})
+        .attr("width", ls_w)
+        .attr("height", ls_h)
+        .attr("class", function(d, i){
+            console.log(d)
+            return setColors(d); })
+    legend.append("text")
+        .attr("x", 40 +2)
+        .attr("y", function (d,i) {return height/3.5 - (i*ls_h) - ls_h -4;})
+        .attr("class", "mapSubtext")
+        .text(function(d, i){return d});
+
+}
+//Add labels
+var dataMax = 40;
+var ls_w = 20;
+var ls_h = 20;
+var n_ticks  = 9;
+
 //Read in Json for map outline of ZIPS
 d3.json('./data/zipcodes.json', function(zips){
     setSVG();
     mapCreate(zips);
+    setLegend();
 });
-
-/*
-var rateById = d3.map();
-
-var quantize = d3.scale.quantize()
-    .domain([0, .15])
-    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
-
-var path = d3.geo.path();
-
-
-queue()
-    .defer(d3.json, "./data/zipcodes.json")
-    .defer(d3.json, "./data/NYC_mean_scores.json"), function(d) { rateById.set(d.id, +d.rate); })
-      .await(ready);
-
-   function ready(error, us) {
-     svg.append("g")
-         .attr("class", "counties")
-      .selectAll("path")
-         .data(topojson.feature(us, us.objects.counties).features)
-      .enter().append("path")
-         .attr("class", function(d) { return quantize(rateById.get(d.id)); })
-         .attr("d", path);
-
-  svg.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("class", "states")
-      .attr("d", path);
-}
-*/
