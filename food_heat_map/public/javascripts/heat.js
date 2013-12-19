@@ -49,6 +49,11 @@ var zoom = function() {
 
 //mapping setup
 var mapCreate = function (zips) {
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+
     svg.append("g")
         .selectAll("path")
         .data(zips.features)
@@ -58,9 +63,27 @@ var mapCreate = function (zips) {
         .attr("stroke", '#fff')
         .attr("class", function(d) {
             return zipColor(d.id, scores)})
+        .on("mouseover", mouseOver)
+        .on("mouseout", mouseOut)
         .attr("d", path);
+
 }
 
+// mouseover
+var mouseOver = function(d) {
+    d3.select(this).style("stroke-width", "4px");
+    var zip = $(this).attr("title");
+    var meanScore = scores[zip];
+    console.log(zip);
+    d3.select("#infoBox").html("Zipcode: " + zip + " Mean score: " + Math.round(meanScore))
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageX -28) + "px");
+    }
+
+var mouseOut = function(d) {
+    console.log('out!');
+    d3.select(this).style("stroke-width", "");
+    }
 
 // Create legend
 var setLegend = function () {
@@ -90,15 +113,17 @@ var setLegend = function () {
 
 }
 // alllow view data on mouseover
+/*
 var mouseOver = function (){
     $("path").hover(function (){
         zip = $(this).attr("title");
         meanScore = scores[zip];
-        console.log(meanScore)
         $("#infoBox").html("Zipcode: " + zip + " Mean score: " + Math.round(meanScore));
         }
     );
 };
+*/
+
 
 //Add labels
 var dataMax = 40;
@@ -112,5 +137,5 @@ d3.json('./data/zipcodes.json', function(zips){
     svg.call(d3.behavior.zoom().scaleExtent([.5, 8]).on("zoom", zoom));
     mapCreate(zips);
     setLegend();
-    mouseOver();
+
 });
