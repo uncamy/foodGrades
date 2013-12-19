@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+.mouseover {
+    postion: absolute;
+    text-align: center;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    top: 0px;
+    left: 0px;
+    margin-top: 10px;
+    margin-left: 10px;
+}

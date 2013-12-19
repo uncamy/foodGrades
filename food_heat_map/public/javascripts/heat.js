@@ -70,6 +70,15 @@ var mapCreate = function (zips) {
 }
 
 // mouseover
+d3.select('html')
+    .on('mouseMove', function(){
+        var locs = d3.mouse(this);
+        locs[0]+= 15;
+        locs[1]+= 5;
+
+        $(".mouseover").css("left", locs[0]);
+        $(".mouseover").css("right", locs[1]);
+});
 var mouseOver = function(d) {
     d3.select(this).style("stroke-width", "4px");
     var zip = $(this).attr("title");
